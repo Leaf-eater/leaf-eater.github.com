@@ -84,31 +84,31 @@
 
 
 
-<meta name="description" content="##问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
+<meta name="description" content="问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
 　　
 
 Remove x from S
 Find the successor of x: the smallest y in S such that y≥x.
-design a data type so">
+design a data type so th">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并查集系列（三）——继承者问题">
 <meta property="og:url" content="http://yoursite.com/2017/02/02/并查集系列（三）——继承者问题/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="##问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
+<meta property="og:description" content="问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
 　　
 
 Remove x from S
 Find the successor of x: the smallest y in S such that y≥x.
-design a data type so">
-<meta property="og:updated_time" content="2017-02-02T13:01:24.438Z">
+design a data type so th">
+<meta property="og:updated_time" content="2017-02-13T09:32:15.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并查集系列（三）——继承者问题">
-<meta name="twitter:description" content="##问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
+<meta name="twitter:description" content="问题描述　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
 　　
 
 Remove x from S
 Find the successor of x: the smallest y in S such that y≥x.
-design a data type so">
+design a data type so th">
 
 
 
@@ -362,21 +362,21 @@ design a data type so">
       
 
       
-        <p>##问题描述<br>　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
 　　</p>
 <ol>
 <li>Remove x from S</li>
 <li>Find the successor of x: the smallest y in S such that y≥x.</li>
 <li><p>design a data type so that all operations (except construction) should take logarithmic time or better.</p>
-<p>##思路分析<br>　　首先来看题目要求是对数时间，这样的话肯定不可能遍历完整个数组（这样至少为ｎ），加之这一部分学的是并查集。。所以思考怎么使用并查集来解决这个问题。这个问题思考了很久啊。。一直没有答案，这里不得不吐槽一下国内写的博客。。完全是为自己写的，应该只有作者本人可以看懂。。。不扯了，接下来借鉴了墙外的一些思路来写的。<br>　　当确定这个题可能要使用并查集的时候我们再来仔细分析一下要求，首先给定的是一段连续的自然数序列（或者数组下标）；第二点我们要获取移除的successor:　剩余数中大于数的队列中的最小数。我们来举个例子，<br>　　｛１ …8｝在这八个数中我们移除6，6的successor为7（find(6) ==7）；<br>　　再移除5，find(5) == 7；<br>　　再移除2 , find(2) == 3　find(3) = 3　find(5) ==7　<br>　　<strong>我们可以看到输出的值为一个连通域中最大值＋１，而这个连通域由我们remove（）的数组成。</strong>这就想起了<a href="http://blog.csdn.net/h893456070/article/details/53088077" target="_blank" rel="external">上一道题</a>，我们使用并查集来实现在对数时间中查找列表中的最大项。</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>　　首先来看题目要求是对数时间，这样的话肯定不可能遍历完整个数组（这样至少为ｎ），加之这一部分学的是并查集。。所以思考怎么使用并查集来解决这个问题。这个问题思考了很久啊。。一直没有答案，这里不得不吐槽一下国内写的博客。。完全是为自己写的，应该只有作者本人可以看懂。。。不扯了，接下来借鉴了墙外的一些思路来写的。<br>　　当确定这个题可能要使用并查集的时候我们再来仔细分析一下要求，首先给定的是一段连续的自然数序列（或者数组下标）；第二点我们要获取移除的successor:　剩余数中大于数的队列中的最小数。我们来举个例子，<br>　　｛１ …8｝在这八个数中我们移除6，6的successor为7（find(6) ==7）；<br>　　再移除5，find(5) == 7；<br>　　再移除2 , find(2) == 3　find(3) = 3　find(5) ==7　<br>　　<strong>我们可以看到输出的值为一个连通域中最大值＋１，而这个连通域由我们remove（）的数组成。</strong>这就想起了<a href="http://blog.csdn.net/h893456070/article/details/53088077" target="_blank" rel="external">上一道题</a>，我们使用并查集来实现在对数时间中查找列表中的最大项。</p>
 </li>
 </ol>
-<p>##代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class Successor &#123;</div><div class="line">    private int n;</div><div class="line">    private boolean[] isRemove;</div><div class="line">    private FindMax findMax;</div><div class="line"></div><div class="line">    public Successor(int n)&#123;</div><div class="line">        this.n = n; //大小为n的列表</div><div class="line">        findMax = new FindMax();    //上一部分的FindMax类，提供union和find方法</div><div class="line">        isRemove = new boolean[n];  //判断列表项中对应位置的数是否被移除</div><div class="line">        for (int i = 0; i &lt; isRemove.length; i++) &#123;</div><div class="line">            isRemove[i] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void remove(int x) &#123;</div><div class="line">        isRemove[x] = true;</div><div class="line">        if (x&gt;0 &amp;&amp; isRemove[x-1])&#123;</div><div class="line">            findMax.union(x,x-1);</div><div class="line">        &#125;else if (x&lt;n-1 &amp;&amp; isRemove[x+1])&#123;</div><div class="line">            findMax.union(x,x+1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getSuccessor(int x) &#123;</div><div class="line">        if(x&lt;0 || x&gt;n-1)&#123;   //输入不合法</div><div class="line">            return -1;</div><div class="line">        &#125;else if(isRemove[x])&#123;     //若是已经被移除的项,输出移除项中最大项+1</div><div class="line">                return findMax.find(x)+1;</div><div class="line">        &#125;else &#123;     //若不是移除项，则按照规则输出自己</div><div class="line">            return x;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Successor successor = new Successor(8);</div><div class="line">        successor.remove(3);</div><div class="line">        successor.remove(2);</div><div class="line">        successor.remove(0);</div><div class="line">        successor.remove(4);</div><div class="line">        successor.remove(7);</div><div class="line">        System.out.println(&quot;the successor is : &quot; + successor.getSuccessor(2));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class Successor &#123;</div><div class="line">    private int n;</div><div class="line">    private boolean[] isRemove;</div><div class="line">    private FindMax findMax;</div><div class="line"></div><div class="line">    public Successor(int n)&#123;</div><div class="line">        this.n = n; //大小为n的列表</div><div class="line">        findMax = new FindMax();    //上一部分的FindMax类，提供union和find方法</div><div class="line">        isRemove = new boolean[n];  //判断列表项中对应位置的数是否被移除</div><div class="line">        for (int i = 0; i &lt; isRemove.length; i++) &#123;</div><div class="line">            isRemove[i] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void remove(int x) &#123;</div><div class="line">        isRemove[x] = true;</div><div class="line">        if (x&gt;0 &amp;&amp; isRemove[x-1])&#123;</div><div class="line">            findMax.union(x,x-1);</div><div class="line">        &#125;else if (x&lt;n-1 &amp;&amp; isRemove[x+1])&#123;</div><div class="line">            findMax.union(x,x+1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getSuccessor(int x) &#123;</div><div class="line">        if(x&lt;0 || x&gt;n-1)&#123;   //输入不合法</div><div class="line">            return -1;</div><div class="line">        &#125;else if(isRemove[x])&#123;     //若是已经被移除的项,输出移除项中最大项+1</div><div class="line">                return findMax.find(x)+1;</div><div class="line">        &#125;else &#123;     //若不是移除项，则按照规则输出自己</div><div class="line">            return x;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Successor successor = new Successor(8);</div><div class="line">        successor.remove(3);</div><div class="line">        successor.remove(2);</div><div class="line">        successor.remove(0);</div><div class="line">        successor.remove(4);</div><div class="line">        successor.remove(7);</div><div class="line">        System.out.println(&quot;the successor is : &quot; + successor.getSuccessor(2));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>输出：</p>
 <blockquote>
 <p>the successor is : 5</p>
 </blockquote>
-<p>###参考文章<br><a href="http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）" target="_blank" rel="external">http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）</a></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）" target="_blank" rel="external">http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）</a></p>
 
       
     </div>
@@ -468,8 +468,17 @@ design a data type so">
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -525,6 +534,22 @@ design a data type so">
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">3.1.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
