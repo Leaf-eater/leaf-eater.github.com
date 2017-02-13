@@ -85,21 +85,18 @@
 
 
 <meta name="description" content="在上一章我们提出了一种情形，并且指出传统OO的做法不尽人意，我们需要一种新的思路来帮我们解决这样的问题。这是我们引入了第一种设计模式————策略模式。
-什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。
-遵循的设计原则策略模式基于以下三种设计(ji)原(ben)则(fa)：1.将程序中变化的部分和不变的部分隔离开">
+什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式（二）——策略模式">
 <meta property="og:url" content="http://yoursite.com/2017/02/05/设计模式（二）——策略模式/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
 <meta property="og:description" content="在上一章我们提出了一种情形，并且指出传统OO的做法不尽人意，我们需要一种新的思路来帮我们解决这样的问题。这是我们引入了第一种设计模式————策略模式。
-什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。
-遵循的设计原则策略模式基于以下三种设计(ji)原(ben)则(fa)：1.将程序中变化的部分和不变的部分隔离开">
-<meta property="og:updated_time" content="2017-02-05T16:32:30.535Z">
+什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。">
+<meta property="og:updated_time" content="2017-02-13T04:11:44.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式（二）——策略模式">
 <meta name="twitter:description" content="在上一章我们提出了一种情形，并且指出传统OO的做法不尽人意，我们需要一种新的思路来帮我们解决这样的问题。这是我们引入了第一种设计模式————策略模式。
-什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。
-遵循的设计原则策略模式基于以下三种设计(ji)原(ben)则(fa)：1.将程序中变化的部分和不变的部分隔离开">
+什么时候使用？当如下情况发生时：一个对象的某个行为有多种实现方式。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。">
 
 
 
@@ -354,7 +351,7 @@
 
       
         <p>在<a href="https://leaf-eater.github.io/2017/02/03/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%BC%A0%E7%BB%9FOO/" target="_blank" rel="external">上一章</a>我们提出了一种情形，并且指出传统OO的做法不尽人意，我们需要一种新的思路来帮我们解决这样的问题。这是我们引入了第一种设计模式————策略模式。</p>
-<h2 id="什么时候使用？"><a href="#什么时候使用？" class="headerlink" title="什么时候使用？"></a>什么时候使用？</h2><p>当如下情况发生时：<br><strong>一个对象的某个行为有多种实现方式</strong>。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。</p>
+<h2 id="什么时候使用？"><a href="#什么时候使用？" class="headerlink" title="什么时候使用？"></a>什么时候使用？</h2><p>当如下情况发生时：<br><strong>一个对象的某个行为有多种实现方式</strong>。这时候使用策略模式可以将各个算法独立于对象独立运行，而且可以相互置换。<br><a id="more"></a></p>
 <h2 id="遵循的设计原则"><a href="#遵循的设计原则" class="headerlink" title="遵循的设计原则"></a>遵循的设计原则</h2><p>策略模式基于以下三种设计(ji)原(ben)则(fa)：<br>1.将程序中变化的部分和不变的部分隔离开<br>这样做的特点是灵活，不必为了修改某个部分而大动干戈。<br>2.针对接口编程而不是针对实现编程<br>我们不需要再设计某个对象的实现的时候将他所有的功能都实现出来，而是将易变的功能交付给别人来完成。<br>3.多用组合少用继承<br>在生产实例的时候我们将不同人那里的功能取过来，拼装在一起。</p>
 <h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2><p>在写这篇文章之前，我去膜拜了一下大神们怎么介绍策略模式，发现他们对于实现策略模式的三个客体有固定的叫法。看来我还很稚嫩啊。。。这里遵守规矩我就不自己起名字了。。咳咳，恩，有三个客体：<br>1.Context:<br>其实指的就是使用这一系列算法的使用者。一个武术家精通十八班武艺，那Context指的就是这个武术家。<br>2.Strategy:<br>指的是所有策略类的超类(接口或者抽象类)。对应”十八般武艺”——很多不同武艺的集合称呼，是不同武艺的抽象或者集合。<br>3.ContreteStrategy:<br>指的是某一个策略类。对应”太极拳”，”长拳”，”少林棍法”这样具体的武艺。是”武艺”这个抽象名词的一种实现方式，和上一个一起理解一下~</p>
 <h2 id="实战演示"><a href="#实战演示" class="headerlink" title="实战演示"></a>实战演示</h2><p>需求：在操作系统中，我们使用页面置换的方法来提高内存的利用率，现给出三种页面置换算法，要求各使用三分之一个序列，求出时间（自己瞎想的哈。。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">public class PageReplacementOptimized &#123;</div><div class="line"></div><div class="line">    private static Page getPage()&#123;return new Page(0,0);&#125;//获取当前页这里不展开写了</div><div class="line">    private static int getOrder()&#123;return 0;&#125;//同上</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">    	int start = getTime();</div><div class="line">        userSpace userSpace = new userSpace(getPage(),getOrder());</div><div class="line">        userSpace.startWork(new LRU()); //使用策略模式可以在运行时改变使用的策略</div><div class="line">        //等待三分之一</div><div class="line">        userSpace.setWorkMode(new FIFO());</div><div class="line">        //等待三分之一</div><div class="line">        userSpace.setWorkMode(new OPT());</div><div class="line">        int end = getTime();</div><div class="line">        System.out.println(&quot;时间:&quot; + (start - end) );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class userSpace&#123;</div><div class="line">    private PageReplaceAlgorithm algorithm;</div><div class="line">    private Page page;</div><div class="line">    private int order;</div><div class="line"></div><div class="line">    userSpace(Page page, int order)&#123;</div><div class="line">        this.page = page;</div><div class="line">        this.order = order;</div><div class="line">    &#125;</div><div class="line">    //这里体现的是面相接口编程，我们在这里不需要知道具体使用什么算法（即使用LRU.pageReplace)</div><div class="line">    void startWork(PageReplaceAlgorithm defaultAlgorithm)&#123;</div><div class="line">        algorithm = defaultAlgorithm;</div><div class="line">        algorithm.pageReplace(page,order);</div><div class="line">    &#125;</div><div class="line">    //这里我们可以动态的设定行为，面相接口的灵活性得以体现</div><div class="line">    void setWorkMode(PageReplaceAlgorithm newAlgorithm)&#123;</div><div class="line">        algorithm = newAlgorithm;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//PageReplaceAlgorithm是三种具体算法的超类</div><div class="line">interface PageReplaceAlgorithm &#123;</div><div class="line">    void pageReplace(Page currentPage, int order);</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LRU implements PageReplaceAlgorithm &#123;</div><div class="line">    @Override</div><div class="line">    public void pageReplace(Page currentPage, int order) &#123;</div><div class="line">        PageReplacement.LRU(currentPage);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class FIFO implements PageReplaceAlgorithm &#123;</div><div class="line">    @Override</div><div class="line">    public void pageReplace(Page currentPage, int order) &#123;</div><div class="line">        PageReplacement.FIFO(currentPage);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class OPT implements PageReplaceAlgorithm &#123;</div><div class="line">    @Override</div><div class="line">    public void pageReplace(Page currentPage, int order) &#123;</div><div class="line">        PageReplacement.OPT(currentPage, order);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -470,7 +467,7 @@
                src="/images/avatar.png"
                alt="YuHang" />
           <p class="site-author-name" itemprop="name">YuHang</p>
-          <p class="site-description motion-element" itemprop="description">做一个有趣的人</p>
+          <p class="site-description motion-element" itemprop="description">美丽的事物那么多，我不甘心只拥有一个</p>
         </div>
         <nav class="site-state motion-element">
         
