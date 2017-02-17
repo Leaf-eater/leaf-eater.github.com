@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -84,16 +84,22 @@
 
 
 
-<meta name="description" content="美丽的事物那么多，我不甘心只拥有一个">
+<meta name="description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
+遵循的设计原则
+面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式（三）——观察者模式">
 <meta property="og:url" content="http://yoursite.com/2017/02/09/设计模式（三）——观察者模式/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="美丽的事物那么多，我不甘心只拥有一个">
-<meta property="og:updated_time" content="2017-02-09T14:41:53.794Z">
+<meta property="og:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
+遵循的设计原则
+面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
+<meta property="og:updated_time" content="2017-02-17T03:15:47.191Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式（三）——观察者模式">
-<meta name="twitter:description" content="美丽的事物那么多，我不甘心只拥有一个">
+<meta name="twitter:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
+遵循的设计原则
+面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
 
 
 
@@ -300,6 +306,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -325,7 +353,17 @@
       
 
       
-        
+        <p>观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。<br>使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。</p>
+<h2 id="遵循的设计原则"><a href="#遵循的设计原则" class="headerlink" title="遵循的设计原则"></a>遵循的设计原则</h2><ol>
+<li>面相接口编程<br>这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不需要更改。</li>
+<li>为了交互对象之间的松耦合而努力<br>意思是让对象之间的相互依赖程度降到最低，也就是在对象内部少进行对于另一个对象的调用<h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2>观察者模式有两类角色：消息发送方subject， 消息接收方observer<br>这里subject和observer指的不是一个对象而是一类对象，所以我们创建两个接口subject和observer<br>subject（消息发送方）：<br>我们在subject中添加了register（）和remove（）方法，方便对observer列表进行管理，同时添加notify（）方法对列表中所有的observer进行通知更新操作。<br>observer（消息接收方）：<br>observer中我们只需要预留update（）方法使得subject可以给我们通知。<h2 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h2></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by 宇航 on 2017/2/7.</div><div class="line"> * 设计模式：ObserverPatterns</div><div class="line"> * 需求：我们有一个观察站，可以从传感器中获得实时温度信息，我们需要创造三个展示板。</div><div class="line"> * 每个展示板都有不同的功能，有的实时显示数据，有的预测未来走向，有的用来将信息转发给电视台</div><div class="line"> * 以后可能会有新的布告板所以要方便添加</div><div class="line"> */</div><div class="line">public class WeatherStation &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        WeatherData weatherData = new WeatherData();</div><div class="line">        CurrentConditionsDisplay conditionsDisplay = new CurrentConditionsDisplay(weatherData);</div><div class="line">        weatherData.setMeasurements(12,24,35);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface Subject&#123;</div><div class="line">    void registerObserver(Observer o);</div><div class="line">    void removeObserver(Observer o);</div><div class="line">    void notifyObserver();</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface Observer&#123;</div><div class="line">    void update(float temp, float humidity, float pressure);</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface DisplayElement&#123;</div><div class="line">    void display();</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 在这个例子中WeatherData负责推送消息，也就是subject</div><div class="line"> */</div><div class="line">class WeatherData implements Subject&#123;</div><div class="line">    private ArrayList&lt;Observer&gt; observers;</div><div class="line">    private float temperature;</div><div class="line">    private float humidity;</div><div class="line">    private float pressure;</div><div class="line"></div><div class="line">    WeatherData() &#123;</div><div class="line">        this.observers = new ArrayList&lt;&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void registerObserver(Observer o) &#123;</div><div class="line">        observers.add(o);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void removeObserver(Observer o) &#123;</div><div class="line">        int i = observers.indexOf(o);</div><div class="line">        if(i &gt;= 0) observers.remove(o);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void notifyObserver() &#123;</div><div class="line">        for(int i = 0;i&lt;observers.size();i++)&#123;</div><div class="line">            Observer observer = observers.get(i);</div><div class="line">            observer.update(temperature,humidity,pressure);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void measurementsChanged()&#123;</div><div class="line">        notifyObserver();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMeasurements(float temperature, float humidity, float pressure)&#123;</div><div class="line">        this.temperature = temperature;</div><div class="line">        this.humidity = humidity;</div><div class="line">        this.pressure = pressure;</div><div class="line">        measurementsChanged();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 其中一个布告板的实现</div><div class="line"> * 布告板实时显示温度，气压，湿度</div><div class="line"> * 每个布告板都是一个observer</div><div class="line"> */</div><div class="line">class CurrentConditionsDisplay implements Observer , DisplayElement&#123;</div><div class="line">    private float temperature;</div><div class="line">    private float humidity;</div><div class="line">    private float pressure;</div><div class="line">    private Subject weatherData;</div><div class="line"></div><div class="line">    public CurrentConditionsDisplay(Subject weatherData)&#123;</div><div class="line">        this.weatherData = weatherData;</div><div class="line">        weatherData.registerObserver(this);</div><div class="line">    &#125;</div><div class="line">//  每当数据更新的时候我们将更新数据显示出来</div><div class="line">    public void update (float temperature, float humidity, float pressure) &#123;</div><div class="line">        this.temperature = temperature;</div><div class="line">        this.humidity = humidity;</div><div class="line">        this.pressure = pressure;</div><div class="line">        display();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void display() &#123;</div><div class="line">        System.out.println(&quot;weather:&quot;+&quot;temperature:&quot;+temperature+&quot;humidity:&quot;</div><div class="line">                +humidity+&quot;pressure:&quot;+pressure);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<blockquote>
+<p>weather:temperature:12.0humidity:24.0pressure:35.0</p>
+</blockquote>
+
       
     </div>
 
@@ -345,6 +383,12 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
       
 
       
@@ -410,8 +454,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -467,6 +520,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#遵循的设计原则"><span class="nav-number">1.</span> <span class="nav-text">遵循的设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现"><span class="nav-number">2.</span> <span class="nav-text">如何实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战演练"><span class="nav-number">3.</span> <span class="nav-text">实战演练</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
