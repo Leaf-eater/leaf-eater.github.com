@@ -84,22 +84,16 @@
 
 
 
-<meta name="description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
-遵循的设计原则
-面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
+<meta name="description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式（三）——观察者模式">
 <meta property="og:url" content="http://yoursite.com/2017/02/09/设计模式（三）——观察者模式/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
-遵循的设计原则
-面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
-<meta property="og:updated_time" content="2017-02-17T03:15:47.191Z">
+<meta property="og:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。">
+<meta property="og:updated_time" content="2017-02-19T07:31:37.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式（三）——观察者模式">
-<meta name="twitter:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。
-遵循的设计原则
-面相接口编程这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不">
+<meta name="twitter:description" content="观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。">
 
 
 
@@ -353,7 +347,7 @@
       
 
       
-        <p>观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。<br>使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。</p>
+        <p>观察者模式适用于以下情形：当有一个对象要向外界发出信息，有一些对象需要对这个信息进行实时的接收。<br>使用观察者模式我们可以方便的进行观察者的增添和删除工作而不需要对消息发送方进行任何的改变。<br><a id="more"></a></p>
 <h2 id="遵循的设计原则"><a href="#遵循的设计原则" class="headerlink" title="遵循的设计原则"></a>遵循的设计原则</h2><ol>
 <li>面相接口编程<br>这样我们在写调用的时候就不需要知道具体要调用哪个对象，而是说满足某种条件的对象（即实现了这个接口的对象）来做这件事，相当于将对象重新抽象了一下。这样的好处是当增添新的对象的时候，代码不需要更改。</li>
 <li>为了交互对象之间的松耦合而努力<br>意思是让对象之间的相互依赖程度降到最低，也就是在对象内部少进行对于另一个对象的调用<h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2>观察者模式有两类角色：消息发送方subject， 消息接收方observer<br>这里subject和observer指的不是一个对象而是一类对象，所以我们创建两个接口subject和observer<br>subject（消息发送方）：<br>我们在subject中添加了register（）和remove（）方法，方便对observer列表进行管理，同时添加notify（）方法对列表中所有的observer进行通知更新操作。<br>observer（消息接收方）：<br>observer中我们只需要预留update（）方法使得subject可以给我们通知。<h2 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h2></li>
@@ -477,7 +471,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

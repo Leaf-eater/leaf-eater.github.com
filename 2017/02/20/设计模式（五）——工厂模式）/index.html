@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法,并查集," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,16 +84,13 @@
 
 
 
-<meta name="description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="并查集系列（二）——Union-find with specific canonical element">
-<meta property="og:url" content="http://yoursite.com/2017/02/02/并查集系列（二）——Union-find-with-specific-canonical-element/index.html">
+<meta property="og:title" content="设计模式（五）——工厂模式）">
+<meta property="og:url" content="http://yoursite.com/2017/02/20/设计模式（五）——工厂模式）/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
-<meta property="og:updated_time" content="2017-02-02T12:56:34.975Z">
+<meta property="og:updated_time" content="2017-02-20T15:25:02.113Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="并查集系列（二）——Union-find with specific canonical element">
-<meta name="twitter:description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
+<meta name="twitter:title" content="设计模式（五）——工厂模式）">
 
 
 
@@ -121,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/02/并查集系列（二）——Union-find-with-specific-canonical-element/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/20/设计模式（五）——工厂模式）/"/>
 
 
 
 
 
-  <title> 并查集系列（二）——Union-find with specific canonical element | YuHang’s Blog </title>
+  <title> 设计模式（五）——工厂模式） | YuHang’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/02/并查集系列（二）——Union-find-with-specific-canonical-element/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/设计模式（五）——工厂模式）/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YuHang">
@@ -274,7 +271,7 @@
             
             
               
-                并查集系列（二）——Union-find with specific canonical element
+                设计模式（五）——工厂模式）
               
             
           </h1>
@@ -289,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-02T20:55:55+08:00">
-                2017-02-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T23:25:02+08:00">
+                2017-02-20
               </time>
             
 
@@ -299,28 +296,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -347,14 +322,7 @@
       
 
       
-        <p>##问题描述<br>    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better. For example, if one of the connected components is {1,2,6,9}, then the find() method should return 9 for each of the four elements in the connected components.</p>
-<p>##思路分析<br>    通过添加一个数组来完成对于每个树最大值进行维护</p>
-<p>##JAVA代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class FindMax &#123;</div><div class="line">	private  int[] max = new int[10]; // 每个节点对应树的最大值</div><div class="line">	private  int[] roots = new int[10]; // 每个点的父节点</div><div class="line">	private  int[] points = new int[10]; // 每个点所在树的节点数量</div><div class="line"></div><div class="line">	public FindMax()&#123;</div><div class="line">		for (int i = 0; i &lt; roots.length; i++) &#123;</div><div class="line">			roots[i] = i;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; points.length; i++) &#123;</div><div class="line">			points[i] = 1;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; max.length; i++) &#123;</div><div class="line">			max[i] = i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int find(int a)&#123;</div><div class="line">		return max[root(a)];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  void union(int a, int b) &#123;</div><div class="line">		int rootA = root(a);</div><div class="line">		int rootB = root(b);</div><div class="line">		if (root(rootA) != root(rootB)) &#123;</div><div class="line">			if (points[rootA] &lt; points[rootB]) &#123;</div><div class="line">				roots[rootA] = rootB;</div><div class="line">				points[rootB] += points[rootA];</div><div class="line">				if(max[rootA]&gt; max[rootB]) max[rootB] = max[rootA];</div><div class="line">			&#125;</div><div class="line">			if (points[rootB] &lt;= points[rootA]) &#123;</div><div class="line">				roots[rootB] = rootA;</div><div class="line">				points[rootA] += points[rootB];</div><div class="line">				if(max[rootB]&gt; max[rootA]) max[rootA] = max[rootB];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int root(int a) &#123;</div><div class="line">		while (roots[a] != a) &#123;</div><div class="line">			a = roots[a];</div><div class="line">		&#125;</div><div class="line">		return a;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		FindMax find = new FindMax();</div><div class="line">		find.union(1, 2);</div><div class="line">		find.union(1, 4);</div><div class="line">		find.union(4, 6);</div><div class="line">		find.union(5, 2);</div><div class="line">		System.out.println(find.find(2));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<blockquote>
-<p>6</p>
-</blockquote>
-
+        <a id="more"></a>
       
     </div>
 
@@ -375,19 +343,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/算法-并查集/" rel="tag"># 算法,并查集</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/02/并查集系列（一）——Social-network-connectivity/" rel="next" title="并查集系列（一）——Social network connectivity">
-                <i class="fa fa-chevron-left"></i> 并查集系列（一）——Social network connectivity
+              <a href="/2017/02/18/设计模式（四）——装饰者模式/" rel="next" title="设计模式（四）——装饰者模式">
+                <i class="fa fa-chevron-left"></i> 设计模式（四）——装饰者模式
               </a>
             
           </div>
@@ -395,10 +357,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/02/并查集系列（三）——继承者问题/" rel="prev" title="并查集系列（三）——继承者问题">
-                并查集系列（三）——继承者问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
