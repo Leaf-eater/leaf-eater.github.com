@@ -84,13 +84,16 @@
 
 
 
+<meta name="description" content="单例模式被使用于只允许有一个实例存在的需求中，通过将构造方法设为私有类型来避免无限制的new 新的对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式（六）——单例模式">
 <meta property="og:url" content="http://yoursite.com/2017/02/28/设计模式（六）——单例模式/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:updated_time" content="2017-02-28T11:35:35.421Z">
+<meta property="og:description" content="单例模式被使用于只允许有一个实例存在的需求中，通过将构造方法设为私有类型来避免无限制的new 新的对象">
+<meta property="og:updated_time" content="2017-02-28T13:34:21.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式（六）——单例模式">
+<meta name="twitter:description" content="单例模式被使用于只允许有一个实例存在的需求中，通过将构造方法设为私有类型来避免无限制的new 新的对象">
 
 
 
@@ -322,7 +325,38 @@
       
 
       
-        <a id="more"></a>
+        <p>单例模式被使用于只允许有一个实例存在的需求中，通过将构造方法设为私有类型来避免无限制的new 新的对象<br><a id="more"></a></p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>为什么需要用单例模式呢？在开发中需要定义一些资源，这些资源是有固定数量的，比如说线程池，注册表。对于这些只能存在一个的对象就需要使用单例模式。当然我们可以使用静态来达到这样的需求，但是使用静态就意味着需要在程序一开始就将类加载进内存（而不是需要时加载）。</p>
+<h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><h3 id="经典版本"><a href="#经典版本" class="headerlink" title="经典版本"></a>经典版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">**</div><div class="line"> * Created by 宇航 on 2017/2/28.</div><div class="line"> * 需求：创建一个注册表对象，保证它只能有一个实例</div><div class="line"> */</div><div class="line">public class ClassicsSingleton &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Register register = Register.createRegister();</div><div class="line">        register.setId(3);</div><div class="line">        register = Register.createRegister();   //因为已经实例化，所以构造方法不会被再次调用</div><div class="line">        System.out.println(register.getId());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Register &#123;</div><div class="line">    private static Register register;</div><div class="line">    private int id;</div><div class="line"></div><div class="line">    public int getId() &#123;</div><div class="line">        return id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setId(int id) &#123;</div><div class="line">        this.id = id;</div><div class="line">    &#125;</div><div class="line">//设为private之后，只能在自身内部进行调用</div><div class="line">    private Register() &#123;</div><div class="line">        System.out.println(&quot;可以将Register进行初始化&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//使用public的方法作为实例创建的出口</div><div class="line">    public static Register createRegister()&#123;</div><div class="line">        if (register == null) &#123;</div><div class="line">            return register = new Register();</div><div class="line">        &#125;else &#123;</div><div class="line">            return register;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="脑洞版本"><a href="#脑洞版本" class="headerlink" title="脑洞版本"></a>脑洞版本</h3><p>**</p>
+<ul>
+<li>Created by 宇航 on 2017/2/28.</li>
+<li>需求：我们决定建立一个全球限量五部的超级跑车，请你为我们的生产线设计代码</li>
+<li>当跑车数量多于三部时拒绝生产并发出警告<br>*/<br>public class SingletonTest {<br>public static void main(String[] args) {<br>//    CarFactory carFactory = new CarFactory(); 无法实例化<br> for (int i = 0; i &lt; 5; i++) {<pre><code>CarFactory.createCar();
+</code></pre> }<br>}<br>}</li>
+</ul>
+<p>class CarFactory{<br>    private static int count = 0;</p>
+<pre><code>private CarFactory(){
+
+ }
+
+ public static CarFactory createCar(){
+     if (count &lt; 3){
+         System.out.println(&quot;创建了一辆车&quot;);
+         count++;
+         return new CarFactory();
+     }else {
+         System.out.println(&quot;生产已达上限&quot;);
+         return null;
+     }
+ }
+</code></pre><p>}</p>
+<h2 id="回顾一下以上两种模式有什么弊端"><a href="#回顾一下以上两种模式有什么弊端" class="headerlink" title="回顾一下以上两种模式有什么弊端"></a>回顾一下以上两种模式有什么弊端</h2><p>基于经典单例模式有一个弊端：多线程<br>上面两种编程方式是线程不安全的。假设一种情况：当线程a运行到<code>if (register == null)</code>的情况时，下一个时间线程b也运行到这一句判断，这是因为线程a还没有new 一个新的对象，所以两个线程判断这个条件都为true。糟糕的事情发生了——我们创建了两个对象，对于顾客来说他们辛辛苦苦积累的数据被恢复成最开始的模样了。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>1.<br>使用synchronized关键字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class Singleton &#123;  </div><div class="line">    private static Singleton instance;  </div><div class="line">    private Singleton ()&#123;&#125;  </div><div class="line">    public static synchronized Singleton createInstance() &#123;  </div><div class="line">    if (instance == null) &#123;  </div><div class="line">        instance = new Singleton();  </div><div class="line">    &#125;  </div><div class="line">    return instance;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用synchronized关键字可以完成线程的同步，但是会牺牲效率<br>2.<br>提前进行类初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class Singleton &#123;  </div><div class="line">    private static Singleton instance = new Singleton();  </div><div class="line">    private Singleton ()&#123;&#125;  </div><div class="line">    public static Singleton createInstance() &#123;  </div><div class="line">    return instance;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是当Singleton类进行装载的时候就会创建这个类，看起来我们再调用其他的静态方法可能提前加载对象，不过影响不大<br>3.<br>双重加锁检验<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class Singleton &#123;  </div><div class="line">    private volatile static Singleton instance;  </div><div class="line">    private Singleton ()&#123;&#125;  </div><div class="line">    public static Singleton getInstance() &#123;  </div><div class="line">    if (instance == null) &#123;  </div><div class="line">        synchronized (Singleton.class) &#123;  </div><div class="line">        if (instance == null) &#123;  </div><div class="line">            instance = new Singleton();  </div><div class="line">        &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    return instance;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个方法很好，这是有点麻烦。。而且因为volatile关键字是jsk1.5之后才存在的，所以不能兼容早期版本。</p>
+
       
     </div>
 
@@ -403,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -460,6 +503,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求分析"><span class="nav-number">1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析"><span class="nav-number">2.</span> <span class="nav-text">实例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#经典版本"><span class="nav-number">2.1.</span> <span class="nav-text">经典版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脑洞版本"><span class="nav-number">2.2.</span> <span class="nav-text">脑洞版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾一下以上两种模式有什么弊端"><span class="nav-number">3.</span> <span class="nav-text">回顾一下以上两种模式有什么弊端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">4.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
