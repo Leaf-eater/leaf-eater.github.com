@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
+<meta name="description" content="Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union()">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并查集系列（二）——Union-find with specific canonical element">
 <meta property="og:url" content="http://yoursite.com/2017/02/02/并查集系列（二）——Union-find-with-specific-canonical-element/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
-<meta property="og:updated_time" content="2017-02-02T12:56:34.975Z">
+<meta property="og:description" content="Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union()">
+<meta property="og:updated_time" content="2017-03-04T03:11:36.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并查集系列（二）——Union-find with specific canonical element">
-<meta name="twitter:description" content="##问题描述    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operation">
+<meta name="twitter:description" content="Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union()">
 
 
 
@@ -347,9 +347,10 @@
       
 
       
-        <p>##问题描述<br>    Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better. For example, if one of the connected components is {1,2,6,9}, then the find() method should return 9 for each of the four elements in the connected components.</p>
-<p>##思路分析<br>    通过添加一个数组来完成对于每个树最大值进行维护</p>
-<p>##JAVA代码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class FindMax &#123;</div><div class="line">	private  int[] max = new int[10]; // 每个节点对应树的最大值</div><div class="line">	private  int[] roots = new int[10]; // 每个点的父节点</div><div class="line">	private  int[] points = new int[10]; // 每个点所在树的节点数量</div><div class="line"></div><div class="line">	public FindMax()&#123;</div><div class="line">		for (int i = 0; i &lt; roots.length; i++) &#123;</div><div class="line">			roots[i] = i;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; points.length; i++) &#123;</div><div class="line">			points[i] = 1;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; max.length; i++) &#123;</div><div class="line">			max[i] = i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int find(int a)&#123;</div><div class="line">		return max[root(a)];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  void union(int a, int b) &#123;</div><div class="line">		int rootA = root(a);</div><div class="line">		int rootB = root(b);</div><div class="line">		if (root(rootA) != root(rootB)) &#123;</div><div class="line">			if (points[rootA] &lt; points[rootB]) &#123;</div><div class="line">				roots[rootA] = rootB;</div><div class="line">				points[rootB] += points[rootA];</div><div class="line">				if(max[rootA]&gt; max[rootB]) max[rootB] = max[rootA];</div><div class="line">			&#125;</div><div class="line">			if (points[rootB] &lt;= points[rootA]) &#123;</div><div class="line">				roots[rootB] = rootA;</div><div class="line">				points[rootA] += points[rootB];</div><div class="line">				if(max[rootB]&gt; max[rootA]) max[rootA] = max[rootB];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int root(int a) &#123;</div><div class="line">		while (roots[a] != a) &#123;</div><div class="line">			a = roots[a];</div><div class="line">		&#125;</div><div class="line">		return a;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		FindMax find = new FindMax();</div><div class="line">		find.union(1, 2);</div><div class="line">		find.union(1, 4);</div><div class="line">		find.union(4, 6);</div><div class="line">		find.union(5, 2);</div><div class="line">		System.out.println(find.find(2));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better. For example, if one of the connected components is {1,2,6,9}, then the find() method should return 9 for each of the four elements in the connected components.<br><a id="more"></a></p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><pre><code>Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better. For example, if one of the connected components is {1,2,6,9}, then the find() method should return 9 for each of the four elements in the connected components.
+</code></pre><h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><pre><code>通过添加一个数组来完成对于每个树最大值进行维护
+</code></pre><h2 id="JAVA代码实现"><a href="#JAVA代码实现" class="headerlink" title="JAVA代码实现"></a>JAVA代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class FindMax &#123;</div><div class="line">	private  int[] max = new int[10]; // 每个节点对应树的最大值</div><div class="line">	private  int[] roots = new int[10]; // 每个点的父节点</div><div class="line">	private  int[] points = new int[10]; // 每个点所在树的节点数量</div><div class="line"></div><div class="line">	public FindMax()&#123;</div><div class="line">		for (int i = 0; i &lt; roots.length; i++) &#123;</div><div class="line">			roots[i] = i;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; points.length; i++) &#123;</div><div class="line">			points[i] = 1;</div><div class="line">		&#125;</div><div class="line">		for (int i = 0; i &lt; max.length; i++) &#123;</div><div class="line">			max[i] = i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int find(int a)&#123;</div><div class="line">		return max[root(a)];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  void union(int a, int b) &#123;</div><div class="line">		int rootA = root(a);</div><div class="line">		int rootB = root(b);</div><div class="line">		if (root(rootA) != root(rootB)) &#123;</div><div class="line">			if (points[rootA] &lt; points[rootB]) &#123;</div><div class="line">				roots[rootA] = rootB;</div><div class="line">				points[rootB] += points[rootA];</div><div class="line">				if(max[rootA]&gt; max[rootB]) max[rootB] = max[rootA];</div><div class="line">			&#125;</div><div class="line">			if (points[rootB] &lt;= points[rootA]) &#123;</div><div class="line">				roots[rootB] = rootA;</div><div class="line">				points[rootA] += points[rootB];</div><div class="line">				if(max[rootB]&gt; max[rootA]) max[rootA] = max[rootB];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public  int root(int a) &#123;</div><div class="line">		while (roots[a] != a) &#123;</div><div class="line">			a = roots[a];</div><div class="line">		&#125;</div><div class="line">		return a;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		FindMax find = new FindMax();</div><div class="line">		find.union(1, 2);</div><div class="line">		find.union(1, 4);</div><div class="line">		find.union(4, 6);</div><div class="line">		find.union(5, 2);</div><div class="line">		System.out.println(find.find(2));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <blockquote>
 <p>6</p>
@@ -445,8 +446,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -502,6 +512,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA代码实现"><span class="nav-number">3.</span> <span class="nav-text">JAVA代码实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
