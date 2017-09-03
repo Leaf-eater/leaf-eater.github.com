@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="看看堆排序是怎么回事">
+<meta name="description" content="Unreal中如何进行网络传输，以及一些源码分析，希望能为你提供一些帮助">
 <meta property="og:type" content="article">
-<meta property="og:title" content="谈谈排序（三）——堆排序">
-<meta property="og:url" content="http://yoursite.com/2017/03/18/谈谈排序（三）——堆排序/index.html">
+<meta property="og:title" content="Unreal新手笔记（三）——网络代理">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="看看堆排序是怎么回事">
-<meta property="og:updated_time" content="2017-03-30T03:04:39.814Z">
+<meta property="og:description" content="Unreal中如何进行网络传输，以及一些源码分析，希望能为你提供一些帮助">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/code1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/code3.jpg">
+<meta property="og:updated_time" content="2017-09-03T09:21:59.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="谈谈排序（三）——堆排序">
-<meta name="twitter:description" content="看看堆排序是怎么回事">
+<meta name="twitter:title" content="Unreal新手笔记（三）——网络代理">
+<meta name="twitter:description" content="Unreal中如何进行网络传输，以及一些源码分析，希望能为你提供一些帮助">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/code1.jpg">
 
 
 
@@ -121,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/18/谈谈排序（三）——堆排序/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/"/>
 
 
 
 
 
-  <title> 谈谈排序（三）——堆排序 | YuHang’s Blog </title>
+  <title> Unreal新手笔记（三）——网络代理 | YuHang’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/18/谈谈排序（三）——堆排序/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/Unreal新手笔记（三）——网络代理/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YuHang">
@@ -274,7 +277,7 @@
             
             
               
-                谈谈排序（三）——堆排序
+                Unreal新手笔记（三）——网络代理
               
             
           </h1>
@@ -289,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-18T11:31:20+08:00">
-                2017-03-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T17:07:36+08:00">
+                2017-09-03
               </time>
             
 
@@ -325,7 +328,11 @@
       
 
       
-        <p>看看堆排序是怎么回事<br><a id="more"></a></p>
+        <p>Unreal中如何进行网络传输，以及一些源码分析，希望能为你提供一些帮助<br><a id="more"></a></p>
+<h2 id="开头写点啥"><a href="#开头写点啥" class="headerlink" title="开头写点啥"></a>开头写点啥</h2><p>Unreal十分奇特的一点在于，有些代码写在客户端，有些代码跑在服务器，hmm..编程的时候需要十分清楚，这个变量是不是跑在你想要的地方的，它对于需要同步的网络数据做了很好的封装，今天就看一下网络代理这边的代码</p>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p>在学习什么原理之前首先看看怎么使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">//声明：</div><div class="line">//        定义代理类型</div><div class="line">    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterKilledTipsDelegate, FKilledTipsBlock, BlockData);</div><div class="line">这个宏的定义是这样的;</div><div class="line"></div><div class="line">//       声明一个代理的实例，也就是发起广播的实例</div><div class="line">    UPROPERTY(BlueprintAssignable, Category = STExtraDelegate)</div><div class="line">	FOnCharacterKilledTipsDelegate OnKilledTips;</div><div class="line"></div><div class="line"></div><div class="line">//        同步数据的定义，ReplicatedUsing 表示当这个属性改变的时候，使用哪个方法通知客户端</div><div class="line">    UPROPERTY(EditAnywhere, BlueprintReadOnly, ReplicatedUsing = OnRep_KillTipsNotify, Category = STExtraBaseCharacter)</div><div class="line">		FKilledTipsBlock BlockData;</div><div class="line">//实现：</div><div class="line">//        通知所有客户端</div><div class="line">    	DOREPLIFETIME(ASTExtraBaseCharacter, BlockData);</div><div class="line">//        在被调用的时候进行广播</div><div class="line">        void ASTExtraBaseCharacter::OnRep_KillTipsNotify() &#123;</div><div class="line"></div><div class="line">	        if (USTExtraDelegateMgr::STExtraDelegateMgrInstance()-&gt;OnKilledTips.IsBound())</div><div class="line">	        &#123;</div><div class="line">		        USTExtraDelegateMgr::STExtraDelegateMgrInstance()-&gt;OnKilledTips.Broadcast(BlockData);</div><div class="line">	        &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="怎么实现的"><a href="#怎么实现的" class="headerlink" title="怎么实现的"></a>怎么实现的</h2><p>先看第一句声明，进入到它的实现中是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#define DECLARE_DYNAMIC_DELEGATE_OneParam( DelegateName, Param1Type, Param1Name ) </div><div class="line">BODY_MACRO_COMBINE(CURRENT_FILE_ID,_,__LINE__,_DELEGATE) </div><div class="line">FUNC_DECLARE_DYNAMIC_DELEGATE( FWeakObjectPtr, DelegateName, </div><div class="line">DelegateName##_DelegateWrapper, FUNC_CONCAT( Param1Type InParam1 ), </div><div class="line">FUNC_CONCAT( *this, InParam1 ), void, Param1Type )</div></pre></td></tr></table></figure></p>
+<p>在BODY_MACRO_COMBINE部分将文件ID与代理绑定了起来，看样子是想做一个签名之类的东西，确定代理的发出者。之后的FUNC_DECLARE_DYNAMIC_DELEGATE部分应该是多播代理的具体实现了。通过FUNC_CONCAT整理的参数格式。<br><img src="/2017/09/03/Unreal新手笔记（三）——网络代理/code1.jpg" alt=""><br>在声明的时候填的参数会成为一个BaseDynamicDelegate的子类实例<br>在构造里面接受参数之后调用自己的execute方法，看到广播是任意输入安全的，已经检查过IsBound了，在外面不用做可用性检查了。<br><img src="/2017/09/03/Unreal新手笔记（三）——网络代理/code3.jpg" alt=""><br>紧接着在内联函数的源文件里，看到了具体的实现<br>可以看到多播其实是使用单播实现的。。。。<br>通过维护单播的列表进行add，remove进行对于多播池的维护。这里可以发现多播并不能保证数据的发送顺序</p>
 
       
     </div>
@@ -352,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/18/谈谈排序（二）——基于交换的排序（冒泡-插入）/" rel="next" title="谈谈排序（二）—— 基于交换的排序（冒泡&插入）">
-                <i class="fa fa-chevron-left"></i> 谈谈排序（二）—— 基于交换的排序（冒泡&插入）
+              <a href="/2017/09/03/Unreal新手笔记（二）——编程架构/" rel="next" title="Unreal新手笔记（二）——编程架构">
+                <i class="fa fa-chevron-left"></i> Unreal新手笔记（二）——编程架构
               </a>
             
           </div>
@@ -361,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/21/CrazyCat项目总结/" rel="prev" title="CrazyCat项目总结">
-                CrazyCat项目总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -411,8 +414,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -468,6 +480,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开头写点啥"><span class="nav-number">1.</span> <span class="nav-text">开头写点啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么用"><span class="nav-number">2.</span> <span class="nav-text">怎么用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么实现的"><span class="nav-number">3.</span> <span class="nav-text">怎么实现的</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
