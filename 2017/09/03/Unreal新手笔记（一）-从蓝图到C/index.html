@@ -86,7 +86,7 @@
 
 <meta name="description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unreal新手笔记（一）————从蓝图到C++">
+<meta property="og:title" content="Unreal新手笔记（一）——从蓝图到C++">
 <meta property="og:url" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
 <meta property="og:description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
@@ -97,9 +97,9 @@
 <meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程2.png">
 <meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程3.png">
 <meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_出生点.gif">
-<meta property="og:updated_time" content="2017-09-03T08:05:20.408Z">
+<meta property="og:updated_time" content="2017-09-03T08:18:22.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unreal新手笔记（一）————从蓝图到C++">
+<meta name="twitter:title" content="Unreal新手笔记（一）——从蓝图到C++">
 <meta name="twitter:description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
 <meta name="twitter:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图一.png">
 
@@ -135,7 +135,7 @@
 
 
 
-  <title> Unreal新手笔记（一）————从蓝图到C++ | YuHang’s Blog </title>
+  <title> Unreal新手笔记（一）——从蓝图到C++ | YuHang’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +282,7 @@
             
             
               
-                Unreal新手笔记（一）————从蓝图到C++
+                Unreal新手笔记（一）——从蓝图到C++
               
             
           </h1>
@@ -367,7 +367,7 @@
 <p>当数字1键被按下时切换镜头</p>
 <p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_换镜头.gif" alt=""></p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在上面的蓝图中，我们在1被按下的时候通过SetActive方法执行了换镜头的操作，在这个阶段你可能会遇到一个问题：为什么这个方法可以达到我需要的目的，怎么知道在Camera中有SetActive方法，而不是在PlayerColler或者其他的地方。这就需要对UE的框架有一定的了解~</p>
-<h2 id="熟悉编程架构"><a href="#熟悉编程架构" class="headerlink" title="熟悉编程架构"></a>熟悉编程架构</h2><p>为了克服这个问题，我们需要去了解UE设计中提供的各个组件例如Controller,Pawn,Component都有什么含义,拥有什么功能。通过参考<br><a href="https://docs.unrealengine.com/latest/CHN/Gameplay/Framework/index.html" target="_blank" rel="external">这篇文章</a>及其子项，可以对游戏中的编程框架有一个<br>概念上的认识。由于涉及比较多，所以我单独写了一篇<a href="">文章</a>来介绍。了解之后就大概可以知道我需要的方法/属性应该去哪里去找。</p>
+<h2 id="熟悉编程架构"><a href="#熟悉编程架构" class="headerlink" title="熟悉编程架构"></a>熟悉编程架构</h2><p>为了克服这个问题，我们需要去了解UE设计中提供的各个组件例如Controller,Pawn,Component都有什么含义,拥有什么功能。通过参考<br><a href="https://docs.unrealengine.com/latest/CHN/Gameplay/Framework/index.html" target="_blank" rel="external">这篇文章</a>及其子项，可以对游戏中的编程框架有一个<br>概念上的认识。由于涉及比较多，所以我单独写了一篇<a href="https://leaf-eater.github.io/2017/09/03/Unreal%E6%96%B0%E6%89%8B%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E7%BC%96%E7%A8%8B%E6%9E%B6%E6%9E%84/" target="_blank" rel="external">文章</a>来介绍。了解之后就大概可以知道我需要的方法/属性应该去哪里去找。</p>
 <h2 id="创造你的方法"><a href="#创造你的方法" class="headerlink" title="创造你的方法"></a>创造你的方法</h2><p>经历了上面的操作，或许你已经觉得蓝图的操作已经比较熟悉了，但是会发现有一些方法并不能满足我们编程的需求，有时候他们提供了一些你并不<br>需要的参数，有时候前辈告诉你之前写的蓝图性能损耗很严重。这时候需要一些更富有变化与效率的编程方式来实现我们的工作，这意为着<br>我们要拿起C++重构我们的代码。UE对于C++做了一些定制，但是要是有C++基础的话熟悉起来也比较快，这里推荐看<a href="https://docs.unrealengine.com/latest/INT/Programming/Introduction/index.html" target="_blank" rel="external">这篇官方文档</a>。<br>需要学习主要包括：UE所定义的一些宏的含义与用法、各个组件中包含了哪些方法。在把上一篇文章看完之后就已经理解了蓝图中所暴露出来的方法到底<br>是从何而来，也可以自己去实现一些方法。当对于一些方法的实现有疑问的时候也知道了应该去哪里寻找答案。</p>
 <h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>1.创建Character的子类MyCharacter,入口在这里，剩下的步骤可以参照上篇官方文档</p>
 <p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程1.png" alt=""></p>
@@ -391,7 +391,7 @@
 <li><a href="https://docs.unrealengine.com/latest/CHN/Engine/UMG/UserGuide/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Engine/UMG/UserGuide/index.html</a> 这个目录下的<strong>子目录</strong>对于UMG中的基本概念进行了很详细的介绍，理解了之后对于之后的学习有很大的帮助</li>
 <li><a href="https://docs.unrealengine.com/latest/CHN/Engine/UMG/QuickStart/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Engine/UMG/QuickStart/index.html</a> 这个目录下的<strong>子目录</strong>是一个小需求，可以帮助快速入门</li>
 <li><a href="https://docs.unrealengine.com/latest/CHN/Programming/Introduction/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Programming/Introduction/index.html</a> 这边文章是UEC++的介绍文章，是我看的doc里面写的最好的一篇！可惜发现的有点晚，不然能省很多的时间</li>
-<li><a href="https://docs.unrealengine.com/latest/CHN/Gameplay/HowTo/UsingCameras/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Gameplay/HowTo/UsingCameras/index.html</a> 相机相关组件这一篇也很清晰，但是父类SceneComponent不再其中，所以刚开始用的时候还有点迷茫。。</li>
+<li><a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（二）——编程架构/" target="_blank" rel="external">https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（二）——编程架构/</a> 相机相关组件这一篇也很清晰，但是父类SceneComponent不再其中，所以刚开始用的时候还有点迷茫。。</li>
 </ol>
 <p>希望对于刚刚接触UE的你有所帮助，祝好~</p>
 <p>leaf eater</p>
