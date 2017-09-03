@@ -1,0 +1,695 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unreal新手笔记（一）--从蓝图到C++">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/index.html">
+<meta property="og:site_name" content="YuHang’s Blog">
+<meta property="og:description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图一.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图二.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_换镜头.gif">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程1.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程2.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程3.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_出生点.gif">
+<meta property="og:updated_time" content="2017-09-03T07:57:33.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unreal新手笔记（一）--从蓝图到C++">
+<meta name="twitter:description" content="写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图一.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/"/>
+
+
+
+
+
+  <title> Unreal新手笔记（一）--从蓝图到C++ | YuHang’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YuHang’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">吃树叶者</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/Unreal新手笔记（一）-从蓝图到C/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YuHang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="YuHang’s Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="YuHang’s Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unreal新手笔记（一）--从蓝图到C++
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T15:50:52+08:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>写给刚刚接触Unreal的选手，希望这篇文章对你有所帮助<br><a id="more"></a></p>
+<blockquote>
+<p>实习了两个月啦，从开始什么都不会一点点开始学，这两天想做一些整理和总结，希望能帮助到刚刚接触UE的同学~</p>
+</blockquote>
+<h2 id="从蓝图做起"><a href="#从蓝图做起" class="headerlink" title="从蓝图做起"></a>从蓝图做起</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>蓝图是UE提供的一种方便快捷的开发方式，它将底层C++的功能封装成了一个个图形化的节点，通过节点之间的相互链接，使得程序<br>按一定的流程执行。UE也提供了蓝图的<a href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/index.html" target="_blank" rel="external">官方教程</a>，<br>通过教程可以快速熟悉引擎的用法。蓝图中提供了流程控制以及大量的基础方法，以获得游戏中你可能用到例如controller,Location等一系列<br>值，也提供了大量的例如Click,BeginPlay之类的事件方便你在正确的时间调用你的方法。在这个阶段你可能会遇到和我一样的问题，不知道有什么方法可以供我调用，也不清楚应该去什么地方获取想要的方法。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>通过Add Component 添加下列组件</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图一.png" alt=""></p>
+<p>设置以下节点</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_图二.png" alt=""></p>
+<p>当数字1键被按下时切换镜头</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_换镜头.gif" alt=""></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在上面的蓝图中，我们在1被按下的时候通过SetActive方法执行了换镜头的操作，在这个阶段你可能会遇到一个问题：为什么这个方法可以达到我需要的目的，怎么知道在Camera中有SetActive方法，而不是在PlayerColler或者其他的地方。这就需要对UE的框架有一定的了解~</p>
+<h2 id="熟悉编程架构"><a href="#熟悉编程架构" class="headerlink" title="熟悉编程架构"></a>熟悉编程架构</h2><p>为了克服这个问题，我们需要去了解UE设计中提供的各个组件例如Controller,Pawn,Component都有什么含义,拥有什么功能。通过参考<br><a href="https://docs.unrealengine.com/latest/CHN/Gameplay/Framework/index.html" target="_blank" rel="external">这篇文章</a>及其子项，可以对游戏中的编程框架有一个<br>概念上的认识。由于涉及比较多，所以我单独写了一篇<a href="">文章</a>来介绍。了解之后就大概可以知道我需要的方法/属性应该去哪里去找。</p>
+<h2 id="创造你的方法"><a href="#创造你的方法" class="headerlink" title="创造你的方法"></a>创造你的方法</h2><p>经历了上面的操作，或许你已经觉得蓝图的操作已经比较熟悉了，但是会发现有一些方法并不能满足我们编程的需求，有时候他们提供了一些你并不<br>需要的参数，有时候前辈告诉你之前写的蓝图性能损耗很严重。这时候需要一些更富有变化与效率的编程方式来实现我们的工作，这意为着<br>我们要拿起C++重构我们的代码。UE对于C++做了一些定制，但是要是有C++基础的话熟悉起来也比较快，这里推荐看<a href="https://docs.unrealengine.com/latest/INT/Programming/Introduction/index.html" target="_blank" rel="external">这篇官方文档</a>。<br>需要学习主要包括：UE所定义的一些宏的含义与用法、各个组件中包含了哪些方法。在把上一篇文章看完之后就已经理解了蓝图中所暴露出来的方法到底<br>是从何而来，也可以自己去实现一些方法。当对于一些方法的实现有疑问的时候也知道了应该去哪里寻找答案。</p>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>1.创建Character的子类MyCharacter,入口在这里，剩下的步骤可以参照上篇官方文档</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程1.png" alt=""></p>
+<p>2.在头文件中进行声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Leafhan&quot;)</div><div class="line">  bool bornInCentre;</div></pre></td></tr></table></figure></p>
+<p>3.在BeginPlay的时候对Location进行设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void AMyCharacter::BeginPlay()</div><div class="line">&#123;</div><div class="line">	Super::BeginPlay();</div><div class="line">	if (bornInCentre == true)</div><div class="line">	&#123;</div><div class="line">		SetActorLocation(FVector(100, 100, 300));</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.创建Character继承自MyCharacter</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程2.png" alt=""></p>
+<p>5.这时候我们看到C++中设置的bornInCentre属性已经出现在设置里面了</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/编程3.png" alt=""></p>
+<p>6.运行程序，当勾选的时候人物会从世界中心出生</p>
+<p><img src="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/UE新手_出生点.gif" alt=""></p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>在刚才的流程中我们做了这几件事情:</p>
+<ol>
+<li>创建了属于自己的子类，我们可以在这个子类上进行任何我们想做的拓展。但是要注意：拓展的功能应该写在正确的基类下面。例如：玩家控制的逻辑应该放在controller而不是Character中。</li>
+<li>建立了C++与蓝图之间的通信。<br>通过头文件之中有这样一行代码<code>UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Leafhan&quot;)</code>这是UE提供的一种宏，意味着我们声明了这个属性是蓝图中可以读写的，类似的宏还有很多，在UE官网中可以查看到更过宏的作用。当然不只是变量，自定义的方法，事件等也都可以通过C++传输给蓝图</li>
+</ol>
+<h3 id="达到的目标"><a href="#达到的目标" class="headerlink" title="达到的目标"></a>达到的目标</h3><p>通过上面的步骤，我们达到了以下的目的：让C++与蓝图各司其职，运行的逻辑放在C++中，在蓝图中对关键参数进行配置方便测试不同参数下游戏的不同表现，这样在兼顾效率的同时降低了策划调试的成本。</p>
+<h2 id="后续呢…"><a href="#后续呢…" class="headerlink" title="后续呢…"></a>后续呢…</h2><p>这时候已经可以在项目中做一些简单的需求了，上面介绍的是我所认为的最优先学习的几项通用知识，之后根据需求不同，要去不同的领域继续研究，有很多熟悉类库的需要：人物动作、UI、镜头控制、输入控制…对于一个方向来说：首先在官方文档了解有哪些功能，属性有什么用。之后尝试开始做，遇到一些问题的时候看看源码中是怎么写的，内部有什么机制。想想两个月的时间很短，刚刚熟悉又要离开了。。</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><p>UE的参考资料来源比较少，不过还好官网的学习资料很丰富，这里拉了一些我觉得比较重要的，大部分都在文章里提到，这里再提一下<br>UMG:感觉UMG承担了UI中大部分的职能（自我感觉哈~）</p>
+<ol>
+<li><a href="https://docs.unrealengine.com/latest/CHN/Engine/UMG/UserGuide/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Engine/UMG/UserGuide/index.html</a> 这个目录下的<strong>子目录</strong>对于UMG中的基本概念进行了很详细的介绍，理解了之后对于之后的学习有很大的帮助</li>
+<li><a href="https://docs.unrealengine.com/latest/CHN/Engine/UMG/QuickStart/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Engine/UMG/QuickStart/index.html</a> 这个目录下的<strong>子目录</strong>是一个小需求，可以帮助快速入门</li>
+<li><a href="https://docs.unrealengine.com/latest/CHN/Programming/Introduction/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Programming/Introduction/index.html</a> 这边文章是UEC++的介绍文章，是我看的doc里面写的最好的一篇！可惜发现的有点晚，不然能省很多的时间</li>
+<li><a href="https://docs.unrealengine.com/latest/CHN/Gameplay/HowTo/UsingCameras/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/CHN/Gameplay/HowTo/UsingCameras/index.html</a> 相机相关组件这一篇也很清晰，但是父类SceneComponent不再其中，所以刚开始用的时候还有点迷茫。。</li>
+</ol>
+<p>希望对于刚刚接触UE的你有所帮助，祝好~</p>
+<p>leaf eater</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/21/CrazyCat项目总结/" rel="next" title="CrazyCat项目总结">
+                <i class="fa fa-chevron-left"></i> CrazyCat项目总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="YuHang" />
+          <p class="site-author-name" itemprop="name">YuHang</p>
+          <p class="site-description motion-element" itemprop="description">美丽的事物那么多，我不甘心只拥有一个</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从蓝图做起"><span class="nav-number">1.</span> <span class="nav-text">从蓝图做起</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">1.2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">1.3.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熟悉编程架构"><span class="nav-number">2.</span> <span class="nav-text">熟悉编程架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创造你的方法"><span class="nav-number">3.</span> <span class="nav-text">创造你的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例-1"><span class="nav-number">3.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-1"><span class="nav-number">3.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#达到的目标"><span class="nav-number">3.3.</span> <span class="nav-text">达到的目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续呢…"><span class="nav-number">4.</span> <span class="nav-text">后续呢…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">5.</span> <span class="nav-text">资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YuHang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
