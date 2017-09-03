@@ -1,0 +1,714 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="unreal 4," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Unreal引擎的编程架构，通过了解他我们能了解引擎是如何工作的，以及开发者希望我们如何进行游戏开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unreal新手笔记（二）——编程架构">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Unreal新手笔记（二）——编程架构/index.html">
+<meta property="og:site_name" content="YuHang’s Blog">
+<meta property="og:description" content="Unreal引擎的编程架构，通过了解他我们能了解引擎是如何工作的，以及开发者希望我们如何进行游戏开发">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（二）——编程架构/编程架构.png">
+<meta property="og:updated_time" content="2017-09-03T08:05:21.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unreal新手笔记（二）——编程架构">
+<meta name="twitter:description" content="Unreal引擎的编程架构，通过了解他我们能了解引擎是如何工作的，以及开发者希望我们如何进行游戏开发">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（二）——编程架构/编程架构.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/Unreal新手笔记（二）——编程架构/"/>
+
+
+
+
+
+  <title> Unreal新手笔记（二）——编程架构 | YuHang’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YuHang’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">吃树叶者</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/Unreal新手笔记（二）——编程架构/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YuHang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="YuHang’s Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="YuHang’s Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unreal新手笔记（二）——编程架构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T16:01:07+08:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unreal-4/" itemprop="url" rel="index">
+                    <span itemprop="name">unreal 4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Unreal引擎的编程架构，通过了解他我们能了解引擎是如何工作的，以及开发者希望我们如何进行游戏开发<br><a id="more"></a></p>
+<h1 id="UE编程架构"><a href="#UE编程架构" class="headerlink" title="UE编程架构"></a>UE编程架构</h1><h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p>这是这两个月来接触到的部分，更多的部分要靠大家填充啦~<br><img src="/2017/09/03/Unreal新手笔记（二）——编程架构/编程架构.png" alt="类图"><br>如果你是看了<a href="http://km.oa.com/articles/show/337258" target="_blank" rel="external">上一篇文章</a>过来的新手玩家话，还请向下看</p>
+<h2 id="为什么要了解？"><a href="#为什么要了解？" class="headerlink" title="为什么要了解？"></a>为什么要了解？</h2><p>简单说有两个作用：</p>
+<ol>
+<li>知道我需要的方法/属性可以从哪里获取</li>
+<li>明确自定义的方法应该放在那个类中，放在其中会有什么效果</li>
+</ol>
+<p>对于第一点来说，是刚接触引擎时最需要的东西，可以减少开发时的很多迷茫。</p>
+<p>对于第二点，还记得上篇文章中我们自定义的Character吗？在Character中我们设置了一个属性使得玩家出生在世界中心，你可能会想到一个问题：如果在开发中途我们换了一个character，那岂不是之前写的那个功能需要重新写一遍？这就是了解编程架构的意义所在了，当我们把功能写在character中的时候，编程逻辑为:我们创建了一个名为leafhan的MyCharacter，并且设置Born in Centre为true, 所以地图上所有的leafhan（如果有多个的话）都会出生在世界中心。当我们把Born in Centre的逻辑放在PlayerController中的话，则编程逻辑为：我们控制的那个角色会出生在世界中心。所以为了实现不同的功能，我们需要在不同的地方需要的方法。</p>
+<h2 id="所以这些类的含义是什么？"><a href="#所以这些类的含义是什么？" class="headerlink" title="所以这些类的含义是什么？"></a>所以这些类的含义是什么？</h2><h3 id="UObject"><a href="#UObject" class="headerlink" title="UObject"></a>UObject</h3><p>所有类的父类，如果你对Java有所了解的话可以很方便的理解它，最重要的点在于它提供了一个统一的调用接口，你可以在源码中看到PreSave,preloading,beginDestory等操作，通过统一的接口可以实现对象管理，垃圾回收等机制。</p>
+<h3 id="AActor"><a href="#AActor" class="headerlink" title="AActor"></a>AActor</h3><p>对于Actor，在我这个新手的角度看最直观的三个扩充为：</p>
+<ol>
+<li>拥有了Transform的属性，可以设置位置了</li>
+<li>可以拥有Component，通过Component拓展自身功能</li>
+<li>提供了诸如OnClicked, EndPlay等事件</li>
+</ol>
+<p>官网对于Actor的<a href="https://docs-origin.unrealengine.com/latest/CHN/Programming/UnrealArchitecture/Actors/index.html" target="_blank" rel="external">解释</a>很完善，如果你觉得不好理解的话可以先理解为：一个具有位置坐标的抽象体，可以通过增加Component来使得抽象体不断的细化，最终具有一定的功能或者表象。</p>
+<h3 id="UActorComponent"><a href="#UActorComponent" class="headerlink" title="UActorComponent"></a>UActorComponent</h3><p>UActorComponent就是上面所提到的Component的基类，你可以将Component理解为一种挂件，用于附着在某个Actor上用于拓展它的功能。所以在其内部除了Create，Destroy的声明周期外，还有Register，Active等接口，用于绑定或者激活组件。</p>
+<h4 id="USceneComponent"><a href="#USceneComponent" class="headerlink" title="USceneComponent"></a>USceneComponent</h4><p>Component的作用是附着在Actor上的，但SceneComponent除了Actor也可以附着到Component上，这是它的一个重要的特性。这也就意为着它也需要Transform来确定它附着的位置，由于有多重附着的可能，所以Transform分为两套，Relative显示相对于父控件的位置，World设置相对于世界的位置。</p>
+<h3 id="Apawn"><a href="#Apawn" class="headerlink" title="Apawn"></a>Apawn</h3><p>Pawn是玩家的物理存在，这里的“玩家”不仅仅指的是玩游戏的角色，也包括游戏AI所控制的角色。它主要的功能是获得Controller的一些输入。在它的一些子类中，会添加运动组件、碰撞组件等一系列组件在标识当这个pawn在获得一个输入之后该如何具体表现。注意，Pawn不一定是人形的，也可以是一个猴子，飞机，或者其他奇奇怪怪的东西。</p>
+<h4 id="ACharacter"><a href="#ACharacter" class="headerlink" title="ACharacter"></a>ACharacter</h4><p>Character是Pawn的一个子类，增加了运动和碰撞组件以便对输入做出相应的相应。Character是人形的（还记得上篇文章中自定义的那个Character吗），也拥有骨骼胶囊体这样的组件，它已经和我们常见的游戏角色没什么区别了。新加了jumping，falling，moving等一系列接口。</p>
+<h3 id="AController"><a href="#AController" class="headerlink" title="AController"></a>AController</h3><p>Controller是Pawn的控制器，它的主要作用是表现玩家的意图，例如开火，向某个方向跑步，展开自己的翅膀（如果有的话）。可以认为Controller就是玩家意图的化身，所以它是与玩家绑定的而不是某个Pawn,这意味着玩家可以与pawn解耦开。如果我想的话我可以一会儿控制人物，一会儿控制飞机，一会儿控制飞行中的导弹。这种解耦的方式使得我们实现多样化的需求。</p>
+<h3 id="AInfo"><a href="#AInfo" class="headerlink" title="AInfo"></a>AInfo</h3><p>所有游戏信息的基类，在这个类中需要注意的是，有些信息会出现在客户端，有些信息仅出现在服务器，有些信息两边都会出现，所以在编程的时候需要分清楚~</p>
+<h4 id="APlayerState"><a href="#APlayerState" class="headerlink" title="APlayerState"></a>APlayerState</h4><p>PlayState会复制到所有的客户端，服务器上也会围护一份PlayerState的复制，用来记录玩家状态</p>
+<h4 id="AGameStateBase"><a href="#AGameStateBase" class="headerlink" title="AGameStateBase"></a>AGameStateBase</h4><p>GameStateBase会存放在服务器以及所有的客户端，用来记录游戏中的一些公共信息（游戏进度，世界Boss之类的）</p>
+<h4 id="AGameModeBase"><a href="#AGameModeBase" class="headerlink" title="AGameModeBase"></a>AGameModeBase</h4><p>GameMode讲的是一种游戏规则（玩家数量，游戏事件，哪些功能开启之类的）关于这一点<a href="https://docs-origin.unrealengine.com/latest/CHN/Gameplay/Framework/GameMode/index.html" target="_blank" rel="external">官网教程</a>讲的很全面,就不赘述了。</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>了解了编程架构，我们就可以解决两个问题：</p>
+<ol>
+<li>某项属性或方法（例如已经进行的游戏时间）应该在哪里获得</li>
+<li>自己想要添加新的功能，应该放在哪里</li>
+</ol>
+<p>接下来如果需要去研究某个方面的功能也会容易很多。</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ol>
+<li><a href="https://docs.unrealengine.com/latest/INT/API/index.html" target="_blank" rel="external">https://docs.unrealengine.com/latest/INT/API/index.html</a> 官方API文档，在里面可以预览结构树，而且提供了简单的介绍，比在工程里面去找方便多了,找到目标之后再去看源码会更有针对性，而且不容易迷失。。</li>
+<li><a href="https://docs-origin.unrealengine.com/latest/INT/Gameplay/Framework/index.html" target="_blank" rel="external">https://docs-origin.unrealengine.com/latest/INT/Gameplay/Framework/index.html</a>  这里面主要记录了设计的理解，即设计者想让开发者在这个模块做什么</li>
+<li><a href="http://km.oa.com/articles/show/337258" target="_blank" rel="external">http://km.oa.com/articles/show/337258</a> hmmm…传说中的上一篇文章</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/unreal-4/" rel="tag"># unreal 4</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/03/Unreal新手笔记（一）-从蓝图到C/" rel="next" title="Unreal新手笔记（一）————从蓝图到C++">
+                <i class="fa fa-chevron-left"></i> Unreal新手笔记（一）————从蓝图到C++
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="YuHang" />
+          <p class="site-author-name" itemprop="name">YuHang</p>
+          <p class="site-description motion-element" itemprop="description">美丽的事物那么多，我不甘心只拥有一个</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UE编程架构"><span class="nav-number">1.</span> <span class="nav-text">UE编程架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类图"><span class="nav-number">1.1.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要了解？"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要了解？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所以这些类的含义是什么？"><span class="nav-number">1.3.</span> <span class="nav-text">所以这些类的含义是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UObject"><span class="nav-number">1.3.1.</span> <span class="nav-text">UObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AActor"><span class="nav-number">1.3.2.</span> <span class="nav-text">AActor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UActorComponent"><span class="nav-number">1.3.3.</span> <span class="nav-text">UActorComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#USceneComponent"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">USceneComponent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apawn"><span class="nav-number">1.3.4.</span> <span class="nav-text">Apawn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ACharacter"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">ACharacter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AController"><span class="nav-number">1.3.5.</span> <span class="nav-text">AController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AInfo"><span class="nav-number">1.3.6.</span> <span class="nav-text">AInfo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#APlayerState"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">APlayerState</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AGameStateBase"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">AGameStateBase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AGameModeBase"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">AGameModeBase</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在后面"><span class="nav-number">1.4.</span> <span class="nav-text">写在后面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">1.5.</span> <span class="nav-text">资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YuHang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
