@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法,并查集," />
+  <meta name="keywords" content="unreal4," />
 
 
 
@@ -84,28 +84,18 @@
 
 
 
-<meta name="description" content="Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
-
-Remove x from S
-Find the successor of x: the smallest y in S such that y≥x.
-design a data type so that all op">
+<meta name="description" content="做镜头相关需求的时候将镜头控制部分的整理了一下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="并查集系列（三）——继承者问题">
-<meta property="og:url" content="http://yoursite.com/2017/02/02/并查集系列（三）——继承者问题/index.html">
+<meta property="og:title" content="Unreal新手笔记（四）——镜头控制">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Unreal新手笔记（四）——镜头控制/index.html">
 <meta property="og:site_name" content="YuHang’s Blog">
-<meta property="og:description" content="Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
-
-Remove x from S
-Find the successor of x: the smallest y in S such that y≥x.
-design a data type so that all op">
-<meta property="og:updated_time" content="2017-03-04T03:07:22.963Z">
+<meta property="og:description" content="做镜头相关需求的时候将镜头控制部分的整理了一下">
+<meta property="og:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（四）——镜头控制/SceneComponent类图.png">
+<meta property="og:updated_time" content="2017-09-03T09:40:21.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="并查集系列（三）——继承者问题">
-<meta name="twitter:description" content="Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:
-
-Remove x from S
-Find the successor of x: the smallest y in S such that y≥x.
-design a data type so that all op">
+<meta name="twitter:title" content="Unreal新手笔记（四）——镜头控制">
+<meta name="twitter:description" content="做镜头相关需求的时候将镜头控制部分的整理了一下">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/03/Unreal新手笔记（四）——镜头控制/SceneComponent类图.png">
 
 
 
@@ -133,13 +123,13 @@ design a data type so that all op">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/02/并查集系列（三）——继承者问题/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/Unreal新手笔记（四）——镜头控制/"/>
 
 
 
 
 
-  <title> 并查集系列（三）——继承者问题 | YuHang’s Blog </title>
+  <title> Unreal新手笔记（四）——镜头控制 | YuHang’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -262,7 +252,7 @@ design a data type so that all op">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/02/并查集系列（三）——继承者问题/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/Unreal新手笔记（四）——镜头控制/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="YuHang">
@@ -286,7 +276,7 @@ design a data type so that all op">
             
             
               
-                并查集系列（三）——继承者问题
+                Unreal新手笔记（四）——镜头控制
               
             
           </h1>
@@ -301,8 +291,8 @@ design a data type so that all op">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-02T20:57:37+08:00">
-                2017-02-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T17:28:15+08:00">
+                2017-09-03
               </time>
             
 
@@ -324,8 +314,8 @@ design a data type so that all op">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/unreal4/" itemprop="url" rel="index">
+                    <span itemprop="name">unreal4</span>
                   </a>
                 </span>
 
@@ -359,23 +349,17 @@ design a data type so that all op">
       
 
       
-        <p>Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:</p>
-<ol>
-<li>Remove x from S</li>
-<li>Find the successor of x: the smallest y in S such that y≥x.</li>
-<li>design a data type so that all operations (except construction) should take logarithmic time or better.<a id="more"></a>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2>　　Given a set of N integers S={0,1,…,N−1} and a sequence of requests of the following form:</li>
-<li>Remove x from S</li>
-<li>Find the successor of x: the smallest y in S such that y≥x.</li>
-<li>design a data type so that all operations (except construction) should take logarithmic time or better.</li>
-</ol>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p> 　　首先来看题目要求是对数时间，这样的话肯定不可能遍历完整个数组（这样至少为ｎ），加之这一部分学的是并查集。。所以思考怎么使用并查集来解决这个问题。这个问题思考了很久啊。。一直没有答案，这里不得不吐槽一下国内写的博客。。完全是为自己写的，应该只有作者本人可以看懂。。。不扯了，接下来借鉴了墙外的一些思路来写的。<br> 　　当确定这个题可能要使用并查集的时候我们再来仔细分析一下要求，首先给定的是一段连续的自然数序列（或者数组下标）；第二点我们要获取移除的successor:　剩余数中大于数的队列中的最小数。我们来举个例子，<br> 　　｛１ …8｝在这八个数中我们移除6，6的successor为7（find(6) ==7）；<br> 　　再移除5，find(5) == 7；<br> 　　再移除2 , find(2) == 3　find(3) = 3　find(5) ==7　<br> 　　<strong>我们可以看到输出的值为一个连通域中最大值＋１，而这个连通域由我们remove（）的数组成。</strong>这就想起了<a href="http://blog.csdn.net/h893456070/article/details/53088077" target="_blank" rel="external">上一道题</a>，我们使用并查集来实现在对数时间中查找列表中的最大项。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class Successor &#123;</div><div class="line">    private int n;</div><div class="line">    private boolean[] isRemove;</div><div class="line">    private FindMax findMax;</div><div class="line"></div><div class="line">    public Successor(int n)&#123;</div><div class="line">        this.n = n; //大小为n的列表</div><div class="line">        findMax = new FindMax();    //上一部分的FindMax类，提供union和find方法</div><div class="line">        isRemove = new boolean[n];  //判断列表项中对应位置的数是否被移除</div><div class="line">        for (int i = 0; i &lt; isRemove.length; i++) &#123;</div><div class="line">            isRemove[i] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void remove(int x) &#123;</div><div class="line">        isRemove[x] = true;</div><div class="line">        if (x&gt;0 &amp;&amp; isRemove[x-1])&#123;</div><div class="line">            findMax.union(x,x-1);</div><div class="line">        &#125;else if (x&lt;n-1 &amp;&amp; isRemove[x+1])&#123;</div><div class="line">            findMax.union(x,x+1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getSuccessor(int x) &#123;</div><div class="line">        if(x&lt;0 || x&gt;n-1)&#123;   //输入不合法</div><div class="line">            return -1;</div><div class="line">        &#125;else if(isRemove[x])&#123;     //若是已经被移除的项,输出移除项中最大项+1</div><div class="line">                return findMax.find(x)+1;</div><div class="line">        &#125;else &#123;     //若不是移除项，则按照规则输出自己</div><div class="line">            return x;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Successor successor = new Successor(8);</div><div class="line">        successor.remove(3);</div><div class="line">        successor.remove(2);</div><div class="line">        successor.remove(0);</div><div class="line">        successor.remove(4);</div><div class="line">        successor.remove(7);</div><div class="line">        System.out.println(&quot;the successor is : &quot; + successor.getSuccessor(2));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>the successor is : 5</p>
-</blockquote>
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）" target="_blank" rel="external">http://vancexu.github.io/2015/07/21/intro-to-union-find-data-structure-exercise.html（墙内）</a></p>
+        <p>做镜头相关需求的时候将镜头控制部分的整理了一下<br><a id="more"></a></p>
+<h2 id="先看类图"><a href="#先看类图" class="headerlink" title="先看类图"></a>先看类图</h2><p><img src="/2017/09/03/Unreal新手笔记（四）——镜头控制/SceneComponent类图.png" alt=""></p>
+<p>注：图中只写出关键成员，对于getter,setter与同类型的成员进行了省略</p>
+<h2 id="先看看SceneComponent"><a href="#先看看SceneComponent" class="headerlink" title="先看看SceneComponent"></a>先看看SceneComponent</h2><h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>Component组件的作用是帮助Actor实现某种功能，例如移动，碰撞等。今天讲的SceneComponent倾向于表现出一个Actor的物理状态，因为是物理存在所以就会有例如transform这样的物理特征。<br>它有一个特点：可以绑定在其他的组件上，SceneComponent的特点是可以绑定在一个Component之上。</p>
+<h3 id="结构与用法"><a href="#结构与用法" class="headerlink" title="结构与用法"></a>结构与用法</h3><p>回顾一下SceneComponent的类图，在它的成员中维护着子节点数组AttachChildren与父亲节点AttachParent。这就是SceneComponent Attachable的体现，多个SceneComponent相互链接可以形成一个树形结构，通过一层层的叠加实现了SceneComponent所需要表现出的物理状态。</p>
+<p>顺着类图继续看，接下来我们看到了一些的transform信息，例如：location，rotation,Scale3D等，也有一些例如碰撞，Mobility，move这样的物理特征。这是一个物理体在虚拟世界的的具体展示所需要的。<br>接下来就是为它树节点特性而打造的一些方法，AttachTo(),UpdateChildTransforms()这样的方法。</p>
+<h2 id="再看看CameraComponent"><a href="#再看看CameraComponent" class="headerlink" title="再看看CameraComponent"></a>再看看CameraComponent</h2><h3 id="是什么？-1"><a href="#是什么？-1" class="headerlink" title="是什么？"></a>是什么？</h3><p>CameraComponent代表了一个摄像机，玩家从摄像机来获取玩家他们所能看到的图像。对于一个摄像机来说，我们可以选择投影方式，视野大小，覆盖式的后处理(post-process overrides)<br>。从类图上可以看到，CameraComponent是继承于SceneComponent的，所以也是具有绑定的能力，这也确定了它可以通过绑定其他的组件控制自己最后显示的图像。</p>
+<h3 id="结构与用法-1"><a href="#结构与用法-1" class="headerlink" title="结构与用法"></a>结构与用法</h3><p>在CameraComponent中所定义的都是有关于摄像机本身的属性和状态,例如FOV，AspectRaio这些属性决定了用户所看到的图像是什么样子的。<br>同时CameraComponent还有一个自身的一套偏移量，使用AddAdditiveOffset()，可以调节它的相对坐标，使用ClearAdditiveOffset()可以方便<br>的清除自身所设置的偏移属性。</p>
+<h2 id="最后是SpringArmComponent"><a href="#最后是SpringArmComponent" class="headerlink" title="最后是SpringArmComponent"></a>最后是SpringArmComponent</h2><h3 id="是什么？-2"><a href="#是什么？-2" class="headerlink" title="是什么？"></a>是什么？</h3><p>SpringArmComponent是一个弹簧臂，它的作用是让一个组件保持在它父节点的一个固定的距离上，当这个组件发生碰撞之后。弹簧臂会收缩来避免碰撞，当碰撞体消失的时候，组件会回到之前的位置。</p>
+<h3 id="结构与用法-2"><a href="#结构与用法-2" class="headerlink" title="结构与用法"></a>结构与用法</h3><p>继续在类图中找线索，对于SpringArm，它有个特点是可以延时跟随(lag属性，很是符合弹簧的特性)，所以在臂长，Pitch等属性之外还有Lag相关的属性，Lag可以控制SpringArm的延时跟随。通过这些属性，可以组件对其parent的距离进行控制。</p>
+<h2 id="梳理一下整体的逻辑"><a href="#梳理一下整体的逻辑" class="headerlink" title="梳理一下整体的逻辑"></a>梳理一下整体的逻辑</h2><p>在最开始的父控件ActorCompoent中，主要控制了控件的生命周期，在什么时候初始化，什么时候Destroy,active,Register(成员太多这里就省略一下了…).到SceneComponent时，它开始控制具体的位置，由于是可以Attach的，所以开始维护父子节点。在最低层的SpringArm以及CameraComponent的时候，它们只用很专一的维护自己相关的属性就ok了。springArm负责控制距离，Camera负责控制镜头表现。所以当我们需要对镜头进行控制的时候，首先要分析需求：需求中有哪些操作，将对应的操作找到对应的类型进行实现就ok了。</p>
 
       
     </div>
@@ -399,7 +383,7 @@ design a data type so that all op">
       
         <div class="post-tags">
           
-            <a href="/tags/算法-并查集/" rel="tag"># 算法,并查集</a>
+            <a href="/tags/unreal4/" rel="tag"># unreal4</a>
           
         </div>
       
@@ -408,8 +392,8 @@ design a data type so that all op">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/02/并查集系列（二）——Union-find-with-specific-canonical-element/" rel="next" title="并查集系列（二）——Union-find with specific canonical element">
-                <i class="fa fa-chevron-left"></i> 并查集系列（二）——Union-find with specific canonical element
+              <a href="/2017/09/03/Unreal新手笔记（三）——网络代理/" rel="next" title="Unreal新手笔记（三）——网络代理">
+                <i class="fa fa-chevron-left"></i> Unreal新手笔记（三）——网络代理
               </a>
             
           </div>
@@ -417,10 +401,6 @@ design a data type so that all op">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/03/设计模式（一）——传统OO/" rel="prev" title="设计模式（一）——传统OO">
-                设计模式（一）——传统OO <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -543,7 +523,7 @@ design a data type so that all op">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">3.1.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先看类图"><span class="nav-number">1.</span> <span class="nav-text">先看类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先看看SceneComponent"><span class="nav-number">2.</span> <span class="nav-text">先看看SceneComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构与用法"><span class="nav-number">2.2.</span> <span class="nav-text">结构与用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再看看CameraComponent"><span class="nav-number">3.</span> <span class="nav-text">再看看CameraComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么？-1"><span class="nav-number">3.1.</span> <span class="nav-text">是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构与用法-1"><span class="nav-number">3.2.</span> <span class="nav-text">结构与用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后是SpringArmComponent"><span class="nav-number">4.</span> <span class="nav-text">最后是SpringArmComponent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么？-2"><span class="nav-number">4.1.</span> <span class="nav-text">是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构与用法-2"><span class="nav-number">4.2.</span> <span class="nav-text">结构与用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梳理一下整体的逻辑"><span class="nav-number">5.</span> <span class="nav-text">梳理一下整体的逻辑</span></a></li></ol></div>
             
 
           </div>
