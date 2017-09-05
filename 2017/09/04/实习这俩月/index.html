@@ -1,0 +1,672 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="title: 实习这俩月date: 2017-09-04 11:57:32categories: UE4
+tags: UE4
+实习期参与的项目为FTS类型游戏，项目仍处于内部开发阶段所以不能透露项目信息，现以常见端游为例，分析UE4中常规需求的技术实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YuHang’s Blog">
+<meta property="og:url" content="http://yoursite.com/2017/09/04/实习这俩月/index.html">
+<meta property="og:site_name" content="YuHang’s Blog">
+<meta property="og:description" content="title: 实习这俩月date: 2017-09-04 11:57:32categories: UE4
+tags: UE4
+实习期参与的项目为FTS类型游戏，项目仍处于内部开发阶段所以不能透露项目信息，现以常见端游为例，分析UE4中常规需求的技术实现。">
+<meta property="og:image" content="http://yoursite.com/2017/09/04/实习这俩月/jishatishi.png">
+<meta property="og:image" content="http://yoursite.com/2017/09/04/实习这俩月/manager.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/09/04/实习这俩月/tips.png">
+<meta property="og:updated_time" content="2017-09-05T04:16:56.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YuHang’s Blog">
+<meta name="twitter:description" content="title: 实习这俩月date: 2017-09-04 11:57:32categories: UE4
+tags: UE4
+实习期参与的项目为FTS类型游戏，项目仍处于内部开发阶段所以不能透露项目信息，现以常见端游为例，分析UE4中常规需求的技术实现。">
+<meta name="twitter:image" content="http://yoursite.com/2017/09/04/实习这俩月/jishatishi.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/04/实习这俩月/"/>
+
+
+
+
+
+  <title>  | YuHang’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YuHang’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">吃树叶者</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/04/实习这俩月/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="YuHang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="YuHang’s Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="YuHang’s Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-04T11:57:33+08:00">
+                2017-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>title: 实习这俩月<br>date: 2017-09-04 11:57:32<br>categories: UE4</p>
+<h2 id="tags-UE4"><a href="#tags-UE4" class="headerlink" title="tags: UE4"></a>tags: UE4</h2><blockquote>
+<p>实习期参与的项目为FTS类型游戏，项目仍处于内部开发阶段所以不能透露项目信息，现以常见端游为例，分析UE4中常规需求的技术实现。<br><a id="more"></a></p>
+<h1 id="实习总结"><a href="#实习总结" class="headerlink" title="实习总结"></a>实习总结</h1><h2 id="小地图"><a href="#小地图" class="headerlink" title="小地图"></a>小地图</h2><h3 id="玩家位置标识"><a href="#玩家位置标识" class="headerlink" title="玩家位置标识"></a>玩家位置标识</h3><p>在小地图中，显示玩家在小地图 中的位置，这里有两种情况：</p>
+<ol>
+<li>小地图中显示全部地图时(英雄联盟的地图)：此时玩家移动时，玩家所对应的标识在小地图中进行相应的平移</li>
+<li>小地图中显示部分地图时(CS中的地图)：此时玩家对应的表示始终保持在地图中央，当玩家移动时，背景地图进行相应的平移<h3 id="标记功能"><a href="#标记功能" class="headerlink" title="标记功能"></a>标记功能</h3>在很多游戏的地图中会有标记功能(如英雄联盟小地图的右击事件)，实现方式在事件触发之后在触发位置做相应的动作就行了，但是需要注意的是，当地图覆盖其他的控件时，是否要允许点击/触摸事件下传。在UE4中image可以下传事件，Button则会消化事件。<h3 id="地图遮罩"><a href="#地图遮罩" class="headerlink" title="地图遮罩"></a>地图遮罩</h3>有时候需要对地图进行一定的遮罩，在UE中可以在widget中重写onPaint函数或者缩放遮盖物的图片实现<h2 id="第三方库接入"><a href="#第三方库接入" class="headerlink" title="第三方库接入"></a>第三方库接入</h2>有一些需要接入的第三方库没有对UE4提供支持，这时要去写一个UE的插件开提供对于UE的接入。对于Android端来说，会通过APL编写一个清单文件，记录了需要在andorid设备上申请的权限。实习期接的库是使用JNI调用C++的相关接口，所以需要Java env，之后在源码中在初始化的adnroid的时候将java env传出完成环境配置。<h2 id="击杀提示"><a href="#击杀提示" class="headerlink" title="击杀提示"></a>击杀提示</h2>需求是做出红框部分的功能<br><img src="/2017/09/04/实习这俩月/jishatishi.png" alt=""><br>这里的逻辑是在玩家死亡的时候将伤害类型，伤害源，被击杀玩家发送到服务器，再由服务器同步到各个客户端，在客户端将这个数据拼成一条完整的击杀提示。<h3 id="伤害类型定义"><a href="#伤害类型定义" class="headerlink" title="伤害类型定义"></a>伤害类型定义</h3>UE中对于伤害的事件类型定义分为点伤害(PointDamage)范围伤害(RadialDamage)，如果我们要扩展更多的伤害类型(例如坠崖死亡)则需要在原有的基础上扩展，通过重写DamageEvent，将各种伤害类型分离开。<h3 id="网络通信"><a href="#网络通信" class="headerlink" title="网络通信"></a>网络通信</h3>详见<a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（三）——网络代理/" target="_blank" rel="external">这篇文章</a>，在PC端进行模拟的时候有一点需要注意：当使用单例的DelegateManager来统一控制各种代理的时候，在一台PC上开多个客户端，每个客户端上会收到很多次传值，这是由于UE在一个进程中模拟多个客户端，所以产生的Manager只有一个，但是这一个manager下面挂了很多个客户端（以五个客户端为例），服务器收到提示之向五个客户端都发送一个数据，所以manager收到了五次，manager作为代理的发出者向所有客户端发送数据，所以所有客户端都会收到五次数据。通过对输入数据做过滤（一个人不可能被击杀两次）或者对controller做判断（只接受来自于自己发出的数据）可以过滤多余数据。<br><img src="/2017/09/04/实习这俩月/manager.jpg" alt=""><h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3>客户端接收到数据之后需要播放相应的动画，动画是在时间轴上增加关键帧实现的<h4 id="item维护"><a href="#item维护" class="headerlink" title="item维护"></a>item维护</h4>这个做法是将widget作为一个父容器，承载着许多小的ItemWidget，每一个item为一条提示，包含了内容，生命周期，id等属性。在父容器中对Item进行维护：有新的消息到来的时候create一个Item，并加入一个等待队列之中。当有空位显示的时候将开启生命周期并显示到相应的位置，生命周期结束则进行销毁。这种做法易于扩展，但是频繁的创建/销毁item会使效率降低而且触发GC引起卡顿。<h4 id="顶替轮播"><a href="#顶替轮播" class="headerlink" title="顶替轮播"></a>顶替轮播</h4>在方案一淘汰之后的第一想法：当有输入进来之后去判断Widget中文本的状态，判断是添加一个文本还是更新一次文本，之后播放相应的动画。<h4 id="解耦和的事件触发"><a href="#解耦和的事件触发" class="headerlink" title="解耦和的事件触发"></a>解耦和的事件触发</h4>上一套做完之后发现维护成本很大，因为动画的播放依赖于文本框的结构，当需要增加一个文本框的时候，整个动画的逻辑都需要更改，所以又换了一套方案。<br><img src="/2017/09/04/实习这俩月/tips.png" alt=""><br>这套方案将数据与动画分隔开，当有新的数据来的时候，将数据缓存到一个数组中。动画那边只负责播动画，播完动画拿数据，没有数据就等待。这样之后维护起来就很方便了。。<h2 id="自由镜头"><a href="#自由镜头" class="headerlink" title="自由镜头"></a>自由镜头</h2>自由镜头也做了几版需求，详情在<a href="">这里</a></li>
+</ol>
+</blockquote>
+<h2 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h2><p>实习期也对自己接触到的东西做了一些总结：<br>快速入门：<a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（一）-从蓝图到C/" target="_blank" rel="external">https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（一）-从蓝图到C/</a><br>UE编程架构：<a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（二）——编程架构/" target="_blank" rel="external">https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（二）——编程架构/</a><br>网络代理：<a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（三）——网络代理/" target="_blank" rel="external">https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（三）——网络代理/</a><br>镜头控制：<a href="https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（四）——镜头控制/" target="_blank" rel="external">https://leaf-eater.github.io/2017/09/03/Unreal新手笔记（四）——镜头控制/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/03/Unreal新手笔记（四）——镜头控制/" rel="next" title="Unreal新手笔记（四）——镜头控制">
+                <i class="fa fa-chevron-left"></i> Unreal新手笔记（四）——镜头控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/05/Unreal自由镜头需求总结/" rel="prev" title="Unreal自由镜头需求总结">
+                Unreal自由镜头需求总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="YuHang" />
+          <p class="site-author-name" itemprop="name">YuHang</p>
+          <p class="site-description motion-element" itemprop="description">美丽的事物那么多，我不甘心只拥有一个</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-UE4"><span class="nav-number">1.</span> <span class="nav-text">tags: UE4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实习总结"><span class="nav-number"></span> <span class="nav-text">实习总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小地图"><span class="nav-number">1.</span> <span class="nav-text">小地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#玩家位置标识"><span class="nav-number">1.1.</span> <span class="nav-text">玩家位置标识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记功能"><span class="nav-number">1.2.</span> <span class="nav-text">标记功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地图遮罩"><span class="nav-number">1.3.</span> <span class="nav-text">地图遮罩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方库接入"><span class="nav-number">2.</span> <span class="nav-text">第三方库接入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#击杀提示"><span class="nav-number">3.</span> <span class="nav-text">击杀提示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伤害类型定义"><span class="nav-number">3.1.</span> <span class="nav-text">伤害类型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络通信"><span class="nav-number">3.2.</span> <span class="nav-text">网络通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画"><span class="nav-number">3.3.</span> <span class="nav-text">动画</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#item维护"><span class="nav-number">3.3.1.</span> <span class="nav-text">item维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶替轮播"><span class="nav-number">3.3.2.</span> <span class="nav-text">顶替轮播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解耦和的事件触发"><span class="nav-number">3.3.3.</span> <span class="nav-text">解耦和的事件触发</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自由镜头"><span class="nav-number">4.</span> <span class="nav-text">自由镜头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关文章"><span class="nav-number">5.</span> <span class="nav-text">相关文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YuHang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
